@@ -1,14 +1,17 @@
 "use client"
 
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 
-const RegisterForm = () => {
+// Define the type for the onRegisterSuccess prop
+type RegisterFormProps = {
+  onRegisterSuccess: () => void;
+};
+
+const RegisterForm = ({ onRegisterSuccess }: RegisterFormProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,8 +30,7 @@ const RegisterForm = () => {
 
     if (response.ok) {
       setSuccess('User registered successfully');
-      // Redirect to login or update the UI accordingly
-      router.push('/login');
+      onRegisterSuccess();
     } else {
       setError(data.error);
     }
@@ -51,7 +53,7 @@ const RegisterForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
-            className="w-full px-3 py-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
           />
         </div>
         <div className="mb-4">
@@ -62,7 +64,7 @@ const RegisterForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="w-full px-3 py-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
           />
         </div>
         <button 
