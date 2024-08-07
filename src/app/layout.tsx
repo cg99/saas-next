@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import { GoogleAnalytics } from '@next/third-parties/google'
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-
-
-const inter = Inter({ subsets: ["latin"] });
+import ClientLayout from "@/components/ClientLayout";
 
 export const metadata: Metadata = {
   title: "Saas App",
@@ -15,18 +9,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-
+}) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Header/>
-        {children}
-        <Footer/>
-        </body>
-      <GoogleAnalytics gaId="G-XYZ" />
+      <body className="text-gray-800">
+        <ClientLayout>{children}</ClientLayout>
+      </body>
     </html>
   );
 }
