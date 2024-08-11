@@ -5,6 +5,10 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   const { priceId } = await req.json();
 
+  if (!priceId) {
+    return NextResponse.json({ error: 'Price ID is required' }, { status: 400 });
+  }
+
   try {
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
@@ -15,8 +19,8 @@ export async function POST(req: Request) {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.NEXT_PUBLIC_DOMAIN}/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_DOMAIN}/cancel`,
+      success_url: `${process.env.NEXT_PUBLIC_DOMAIN}/payment/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_DOMAIN}/payment/cancel`,
     });
 
     return NextResponse.json({ id: session.id });

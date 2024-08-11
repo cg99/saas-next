@@ -19,14 +19,14 @@ const Header = () => {
           <Link href="/about" className="text-gray-800 mx-2 hover:text-blue-500">
             About
           </Link>
-          <Link href="/pricing" className="text-gray-800 mx-2 hover:text-blue-500">
-            Pricing
-          </Link>
           <Link href="/contact" className="text-gray-800 mx-2 hover:text-blue-500">
             Contact
           </Link>
           {status === 'authenticated' ? (
             <>
+              <Link href="/pricing" className="text-gray-800 mx-2 hover:text-blue-500">
+                Pricing
+              </Link>
               <button
                 onClick={() => signOut()}
                 className="text-gray-800 mx-2 hover:text-blue-500"
